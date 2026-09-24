@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-virtual-compute.example/contracts/events/event-v1.schema.json",
+  "title": "Platform Event v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "event_type", "occurred_at", "correlation_id", "actor", "outcome"],
+  "properties": {
+    "event_id": {"type": "string", "pattern": "^evt_[A-Za-z0-9]+$"},
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "resource.requested", "policy.decided", "approval.decided", "device.allocated",
+        "device.state_changed", "session.started", "session.ended", "lease.issued",
+        "lease.revoked", "control.executed", "credential.issued", "credential.revoked",
+        "file.transferred", "snapshot.created", "snapshot.restored", "device.quarantined",
+        "device.destroyed", "emergency_stop.activated", "emergency_stop.released",
+        "security.detected", "provider.health_changed"
+      ]
+    },
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "correlation_id": {"type": "string", "minLength": 1},
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["principal_id", "client_id"],
+      "properties": {
+        "principal_id": {"type": "string"},
+        "client_id": {"type": "string"},
+        "session_id": {"type": ["string", "null"]}
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resource_type": {"type": "string"},
+        "resource_id": {"type": "string"}
+      }
+    },
+    "outcome": {"type": "string", "enum": ["allowed", "denied", "succeeded", "failed", "unknown"]},
+    "reason_code": {"type": ["string", "null"]},
+    "details": {"type": "object"}
+  }
+}
