@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-virtual-compute.example/contracts/device-api/device-v1.schema.json",
+  "title": "Device Representation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["device_id", "device_class", "state", "persistence", "created_at"],
+  "properties": {
+    "device_id": {"type": "string", "pattern": "^dev_[A-Za-z0-9]+$"},
+    "device_class": {"type": "string"},
+    "state": {
+      "type": "string",
+      "enum": [
+        "REQUESTED", "POLICY_CHECK", "RESOLVING", "ALLOCATING", "BOOTING",
+        "READY", "ACTIVE", "IDLE", "SUSPENDING", "SUSPENDED", "DESTROYING",
+        "DESTROYED", "FAILED", "DEGRADED", "QUARANTINED", "RECOVERING"
+      ]
+    },
+    "persistence": {"type": "string", "enum": ["ephemeral", "persistent"]},
+    "capabilities": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "created_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "session_id": {"type": ["string", "null"], "pattern": "^ses_[A-Za-z0-9]+$"},
+    "lease_id": {"type": ["string", "null"], "pattern": "^lease_[A-Za-z0-9]+$"},
+    "links": {"type": "object", "additionalProperties": {"type": "string"}}
+  }
+}
