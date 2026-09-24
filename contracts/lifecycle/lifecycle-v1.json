@@ -1,0 +1,38 @@
+{
+  "states": [
+    "REQUESTED", "POLICY_CHECK", "RESOLVING", "ALLOCATING", "BOOTING",
+    "READY", "ACTIVE", "IDLE", "SUSPENDING", "SUSPENDED", "DESTROYING",
+    "DESTROYED", "FAILED", "DEGRADED", "QUARANTINED", "RECOVERING"
+  ],
+  "initial_state": "REQUESTED",
+  "terminal_states": ["DESTROYED"],
+  "transitions": [
+    {"from": "REQUESTED", "command": "begin_policy_check", "to": "POLICY_CHECK"},
+    {"from": "POLICY_CHECK", "command": "policy_allowed", "to": "RESOLVING"},
+    {"from": "RESOLVING", "command": "candidate_selected", "to": "ALLOCATING"},
+    {"from": "ALLOCATING", "command": "resource_allocated", "to": "BOOTING"},
+    {"from": "BOOTING", "command": "provider_ready", "to": "READY"},
+    {"from": "READY", "command": "session_started", "to": "ACTIVE"},
+    {"from": "ACTIVE", "command": "became_idle", "to": "IDLE"},
+    {"from": "IDLE", "command": "activity_resumed", "to": "ACTIVE"},
+    {"from": "ACTIVE", "command": "suspend", "to": "SUSPENDING"},
+    {"from": "IDLE", "command": "suspend", "to": "SUSPENDING"},
+    {"from": "SUSPENDING", "command": "provider_suspended", "to": "SUSPENDED"},
+    {"from": "SUSPENDED", "command": "resume", "to": "BOOTING"},
+    {"from": "READY", "command": "destroy", "to": "DESTROYING"},
+    {"from": "ACTIVE", "command": "destroy", "to": "DESTROYING"},
+    {"from": "IDLE", "command": "destroy", "to": "DESTROYING"},
+    {"from": "SUSPENDED", "command": "destroy", "to": "DESTROYING"},
+    {"from": "FAILED", "command": "destroy", "to": "DESTROYING"},
+    {"from": "QUARANTINED", "command": "destroy", "to": "DESTROYING"},
+    {"from": "DESTROYING", "command": "absence_confirmed", "to": "DESTROYED"},
+    {"from": "READY", "command": "quarantine", "to": "QUARANTINED"},
+    {"from": "ACTIVE", "command": "quarantine", "to": "QUARANTINED"},
+    {"from": "IDLE", "command": "quarantine", "to": "QUARANTINED"},
+    {"from": "DEGRADED", "command": "quarantine", "to": "QUARANTINED"},
+    {"from": "FAILED", "command": "recover", "to": "RECOVERING"},
+    {"from": "DEGRADED", "command": "recover", "to": "RECOVERING"},
+    {"from": "RECOVERING", "command": "recovered", "to": "READY"},
+    {"from": "RECOVERING", "command": "recovery_failed", "to": "FAILED"}
+  ]
+}
