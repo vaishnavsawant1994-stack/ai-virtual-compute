@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-virtual-compute.example/contracts/errors/error-v1.schema.json",
+  "title": "API Error v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["error", "correlation_id"],
+  "properties": {
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message", "retryable"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "INVALID_REQUEST", "UNAUTHENTICATED", "FORBIDDEN", "APPROVAL_REQUIRED",
+            "NOT_FOUND", "CONFLICT", "INVALID_STATE_TRANSITION", "LEASE_EXPIRED",
+            "LEASE_REVOKED", "CAPABILITY_UNAVAILABLE", "QUOTA_EXCEEDED", "BUDGET_EXCEEDED",
+            "RATE_LIMITED", "EMERGENCY_STOP_ACTIVE", "PROVIDER_UNAVAILABLE",
+            "CAPACITY_UNAVAILABLE", "OPERATION_TIMEOUT", "INTERNAL_ERROR"
+          ]
+        },
+        "message": {"type": "string", "minLength": 1},
+        "retryable": {"type": "boolean"},
+        "details": {"type": "object"}
+      }
+    },
+    "correlation_id": {"type": "string", "minLength": 1}
+  }
+}
