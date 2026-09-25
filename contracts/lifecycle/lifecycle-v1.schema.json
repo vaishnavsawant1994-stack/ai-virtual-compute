@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-virtual-compute.example/contracts/lifecycle/lifecycle-v1.schema.json",
+  "title": "Device Lifecycle v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["states", "initial_state", "terminal_states", "transitions"],
+  "properties": {
+    "states": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/state"}},
+    "initial_state": {"const": "REQUESTED"},
+    "terminal_states": {"type": "array", "items": {"enum": ["DESTROYED"]}},
+    "transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from", "command", "to"],
+        "properties": {
+          "from": {"$ref": "#/$defs/state"},
+          "command": {"type": "string", "minLength": 1},
+          "to": {"$ref": "#/$defs/state"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "state": {
+      "type": "string",
+      "enum": [
+        "REQUESTED", "POLICY_CHECK", "RESOLVING", "ALLOCATING", "BOOTING",
+        "READY", "ACTIVE", "IDLE", "SUSPENDING", "SUSPENDED", "DESTROYING",
+        "DESTROYED", "FAILED", "DEGRADED", "QUARANTINED", "RECOVERING"
+      ]
+    }
+  }
+}

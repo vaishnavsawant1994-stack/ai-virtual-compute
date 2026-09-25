@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-virtual-compute.example/contracts/device-api/device-v1.schema.json",
+  "title": "Device Representation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["device_id", "tenant_id", "device_class", "state", "persistence", "created_at"],
+  "properties": {
+    "device_id": {"type": "string", "pattern": "^dev_[A-Za-z0-9]+$"},
+    "tenant_id": {"type": "string", "pattern": "^ten_[A-Za-z0-9]+$"},
+    "device_class": {"type": "string"},
+    "state": {
+      "type": "string",
+      "enum": [
+        "REQUESTED", "POLICY_CHECK", "RESOLVING", "ALLOCATING", "BOOTING",
+        "READY", "ACTIVE", "IDLE", "SUSPENDING", "SUSPENDED", "DESTROYING",
+        "DESTROYED", "FAILED", "DEGRADED", "QUARANTINED", "RECOVERING"
+      ]
+    },
+    "persistence": {"type": "string", "enum": ["ephemeral", "persistent"]},
+    "capabilities": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "created_at": {"type": "string", "format": "date-time"},
+    "lifecycle_expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "links": {"type": "object", "additionalProperties": {"type": "string"}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"persistence": {"const": "ephemeral"}}},
+      "then": {
+        "required": ["lifecycle_expires_at"],
+        "properties": {"lifecycle_expires_at": {"type": "string", "format": "date-time"}}
+      }
+    }
+  ]
+}

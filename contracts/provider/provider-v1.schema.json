@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-virtual-compute.example/contracts/provider/provider-v1.schema.json",
+  "title": "ComputeProvider Operation Envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["operation_id", "idempotency_key", "operation", "resource_spec", "deadline_at"],
+  "properties": {
+    "operation_id": {"type": "string", "pattern": "^op_[A-Za-z0-9]+$"},
+    "idempotency_key": {"type": "string", "minLength": 16, "maxLength": 200},
+    "operation": {
+      "type": "string",
+      "enum": [
+        "capabilities", "allocate", "boot", "status", "connect", "control",
+        "snapshot", "restore", "suspend", "resume", "reset", "destroy", "health"
+      ]
+    },
+    "provider_resource_id": {"type": ["string", "null"]},
+    "resource_spec": {"type": "object"},
+    "deadline_at": {"type": "string", "format": "date-time"},
+    "correlation_id": {"type": "string", "minLength": 1},
+    "authority_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tenant_id", "device_id", "policy_decision_id", "lease_id"],
+      "properties": {
+        "tenant_id": {"type": "string", "pattern": "^ten_[A-Za-z0-9]+$"},
+        "device_id": {"type": "string", "pattern": "^dev_[A-Za-z0-9]+$"},
+        "policy_decision_id": {"type": "string", "minLength": 1},
+        "lease_id": {"type": ["string", "null"], "pattern": "^lease_[A-Za-z0-9]+$"}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "operation": {"not": {"enum": ["capabilities", "status", "health"]}}
+        }
+      },
+      "then": {"required": ["authority_context"]}
+    },
+    {
+      "if": {"properties": {"operation": {"enum": ["connect", "control"]}}},
+      "then": {
+        "properties": {
+          "authority_context": {
+            "properties": {"lease_id": {"type": "string", "pattern": "^lease_[A-Za-z0-9]+$"}}
+          }
+        }
+      }
+    }
+  ]
+}

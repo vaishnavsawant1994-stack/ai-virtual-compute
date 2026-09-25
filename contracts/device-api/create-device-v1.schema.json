@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-virtual-compute.example/contracts/device-api/create-device-v1.schema.json",
+  "title": "Create Device Request v1",
+  "type": "object",
+  "allOf": [
+    {"$ref": "../capabilities/capability-v1.schema.json"}
+  ]
+}

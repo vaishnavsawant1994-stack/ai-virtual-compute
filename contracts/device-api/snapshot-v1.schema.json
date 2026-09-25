@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-virtual-compute.example/contracts/device-api/snapshot-v1.schema.json",
+  "title": "Device Snapshot v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snapshot_id", "tenant_id", "device_id", "owner_principal_id", "state",
+    "created_at", "retention_expires_at", "integrity_digest", "credential_policy_status"
+  ],
+  "properties": {
+    "snapshot_id": {"type": "string", "pattern": "^snp_[A-Za-z0-9]+$"},
+    "tenant_id": {"type": "string", "pattern": "^ten_[A-Za-z0-9]+$"},
+    "device_id": {"type": "string", "pattern": "^dev_[A-Za-z0-9]+$"},
+    "owner_principal_id": {"type": "string", "pattern": "^prn_[A-Za-z0-9]+$"},
+    "state": {"type": "string", "enum": ["creating", "ready", "restoring", "failed", "deleted"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "retention_expires_at": {"type": ["string", "null"], "format": "date-time"},
+    "integrity_digest": {"type": "string", "minLength": 16},
+    "credential_policy_status": {"type": "string", "enum": ["clear", "redacted", "blocked"]}
+  }
+}

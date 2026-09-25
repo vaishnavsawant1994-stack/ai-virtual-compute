@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-virtual-compute.example/contracts/device-api/session-v1.schema.json",
+  "title": "Device Session v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session_id", "tenant_id", "device_id", "principal_id", "client_id", "state", "created_at"
+  ],
+  "properties": {
+    "session_id": {"type": "string", "pattern": "^ses_[A-Za-z0-9]+$"},
+    "tenant_id": {"type": "string", "pattern": "^ten_[A-Za-z0-9]+$"},
+    "device_id": {"type": "string", "pattern": "^dev_[A-Za-z0-9]+$"},
+    "principal_id": {"type": "string", "pattern": "^prn_[A-Za-z0-9]+$"},
+    "client_id": {"type": "string", "pattern": "^cli_[A-Za-z0-9]+$"},
+    "state": {"type": "string", "enum": ["pending", "active", "paused", "ended", "failed"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "ended_at": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

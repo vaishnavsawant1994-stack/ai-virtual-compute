@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-virtual-compute.example/contracts/device-api/emergency-stop-v1.schema.json",
+  "title": "Emergency Stop v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "emergency_stop_id", "scope", "reason", "activated_at", "activated_by_principal_id", "state"
+  ],
+  "properties": {
+    "emergency_stop_id": {"type": "string", "pattern": "^estop_[A-Za-z0-9]+$"},
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "id"],
+      "properties": {
+        "type": {"type": "string", "enum": ["platform", "tenant", "principal", "client", "provider", "host", "device", "session"]},
+        "id": {"type": ["string", "null"]}
+      }
+    },
+    "reason": {"type": "string", "minLength": 1, "maxLength": 1000},
+    "activated_at": {"type": "string", "format": "date-time"},
+    "activated_by_principal_id": {"type": "string", "pattern": "^prn_[A-Za-z0-9]+$"},
+    "state": {"type": "string", "enum": ["activating", "active", "releasing", "released"]},
+    "released_at": {"type": ["string", "null"], "format": "date-time"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"state": {"const": "released"}}},
+      "then": {
+        "required": ["released_at"],
+        "properties": {"released_at": {"type": "string", "format": "date-time"}}
+      }
+    },
+    {
+      "if": {"properties": {"scope": {"properties": {"type": {"const": "platform"}}}}},
+      "then": {"properties": {"scope": {"properties": {"id": {"type": "null"}}}}},
+      "else": {"properties": {"scope": {"properties": {"id": {"type": "string", "minLength": 1}}}}}
+    }
+  ]
+}
