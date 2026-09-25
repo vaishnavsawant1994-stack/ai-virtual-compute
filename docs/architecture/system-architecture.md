@@ -37,7 +37,7 @@
 
 ## Persistence rule
 
-Ephemeral devices require an expiry. Persistent devices may outlive a single device TTL according to policy, but all access leases remain temporary and revocable. Promotion from ephemeral to persistent is a security workflow, not a database flag change.
+Ephemeral devices require a device lifecycle expiry. Persistent devices may outlive many access leases according to policy, but all access leases remain temporary and revocable. Lease expiry revokes control and does not destroy a persistent device; device lifecycle expiry initiates cleanup and confirmed destruction for an ephemeral device. Promotion from ephemeral to persistent is a security workflow, not a database flag change.
 
 ## Control-plane principle
 
