@@ -30,6 +30,8 @@ Scope: independent virtual-compute platform; Personal AI integration excluded.
 | FR-020 | Tolerate provider, host, network, agent, storage, and credential failures safely. | 1-12 |
 | FR-021 | Allow independent Python, TypeScript, CLI, REST, WebSocket, and agent-tool clients. | 10 |
 | FR-022 | Preserve a provider abstraction capable of future remote physical-device adapters. | 0-1 |
+| FR-023 | Keep device lifecycle expiry independent from lease expiry; a persistent device may survive sequential temporary leases. | 0-2 |
+| FR-024 | Bind devices, sessions, leases, snapshots, and audit events to canonical tenant context without trusting caller tenant claims. | 0-2 |
 
 ## Non-functional requirements
 
@@ -43,6 +45,7 @@ Scope: independent virtual-compute platform; Personal AI integration excluded.
 | NFR-006 | Version public contracts and avoid leaking replaceable provider details. |
 | NFR-007 | Refuse unsafe allocation under capacity, quota, budget, storage, or provider-health pressure. |
 | NFR-008 | Provide deterministic tests using FakeDeviceProvider before real-provider integration. |
+| NFR-009 | Exceptional lifecycle states must be reachable and denial/failure/E-stop paths must not strand resources. |
 
 ## Explicit V1 exclusions
 
