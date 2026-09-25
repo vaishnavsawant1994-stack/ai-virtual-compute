@@ -16,9 +16,10 @@ Stage 0 remains **IN PROGRESS** until every item is reviewed and exact-head qual
 - [x] Cleanup and retention model defined.
 - [x] API, event, and error contracts defined.
 - [x] Testing and qualification strategy defined.
-- [ ] Independent architecture review completed.
+- [x] Hostile Stage-0 architecture/contract audit completed and findings repaired locally.
 - [ ] Contract qualification green on exact pushed commit.
-- [ ] Stage-0 pull request opened and reviewed.
+- [x] Stage-0 pull request opened.
+- [ ] Stage-0 pull request reviewed against the repaired exact head.
 - [ ] Stage-0 closure evidence committed.
 
 ## Gate to Stage 1
