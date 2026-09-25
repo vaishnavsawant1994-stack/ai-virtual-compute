@@ -2,7 +2,7 @@
 
 ## Decision
 
-Stage 0 is a **closure candidate**. It becomes complete only after this evidence-bearing candidate passes exact-head CI.
+Stage 0 is **COMPLETE**. The evidence-bearing closure candidate passed exact-head CI.
 
 An independent GitHub reviewer was unavailable: PR #1's reviewer picker returned `Nothing to show`, and the repository had no second collaborator or available automated reviewer. The owner explicitly authorized a controlled review substitution on 2026-09-25 so work would not be indefinitely blocked.
 
@@ -51,3 +51,10 @@ The hostile audit recorded ten findings and repaired lifecycle reachability, cle
 ## Closure condition
 
 When the evidence-bearing closure candidate passes exact-head CI, Stage 0 becomes **1/12 COMPLETE** and Stage 1 may begin with domain objects, lifecycle state machine, registries, provider interface, `FakeDeviceProvider`, `DeviceService`, audit, and tests. No real virtualization provider is authorized.
+
+## Closure result
+
+- Evidence-bearing public head: `e0b348f0f1e44ae40a622738b8f8214c94ea0d34`.
+- Exact-head CI: run #74, **SUCCESS**.
+- Stage ledger: **1/12 COMPLETE**.
+- Next authorized work: Stage 1 control plane with `FakeDeviceProvider` only.
