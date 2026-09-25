@@ -9,6 +9,7 @@
 - **Adversarial:** races, retries, resource exhaustion, malformed provider behavior.
 - **Failure:** timeouts, unknown outcomes, host/provider/storage/network failures, recovery.
 - **End-to-end:** authorized capability request through cleanup and audit evidence.
+- **Stage-0 hostile contracts:** exceptional-state reachability, non-stranding failure paths, lifetime separation, tenant binding, authority context, audit minimums, and provider-detail non-leakage.
 
 ## Stage qualification
 
