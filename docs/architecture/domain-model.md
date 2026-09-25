@@ -31,3 +31,5 @@
 - A valid lease does not grant unsupported provider capabilities.
 - Ownership does not bypass permission, approval, budget, emergency, or lifecycle policy.
 - A provider status observation does not directly mutate canonical state; the lifecycle manager reconciles it.
+- A device representation does not nominate one canonical session or lease; authorized session and lease resources are queried separately.
+- Lease expiry revokes control without changing persistent-device lifetime. Ephemeral-device lifecycle expiry independently initiates cleanup.
