@@ -22,3 +22,6 @@ These invariants are normative. A provider or feature that cannot preserve them 
 18. **Significant actions are attributable.** Audit records include actor, client, target, request, decision, time, correlation, and outcome.
 19. **Retries are safe.** Provisioning and destructive operations use idempotency or explicit conflict semantics.
 20. **Fail closed under pressure.** Capacity, storage, health, quota, budget, and policy uncertainty cannot produce unsafe allocation.
+21. **Device lifetime is not lease lifetime.** Lease expiry revokes access; it does not destroy a persistent device. Ephemeral device lifecycle expiry initiates cleanup independently of lease state.
+22. **Purpose is not authority.** Client/model-provided purpose, labels, hints, and metadata cannot grant permission, approval, quota, budget, or provider selection authority.
+23. **Representations preserve separation.** Device resources do not embed a canonical current session or lease; sessions and leases are separately authorized resources.
