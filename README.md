@@ -6,9 +6,9 @@ AI Virtual Compute is an independent, capability-based control plane for securel
 
 ## Current status
 
-**0/12 stages complete — Stage 0 closure candidate under exact-head qualification.**
+**1/12 stages complete — Stage 0 (Architecture & Contracts) complete; Stage 1 starting.**
 
-This repository currently contains the authoritative Stage-0 architecture and public contract foundation. It deliberately does **not** integrate a real hypervisor, Android emulator, Windows VM, Apple simulator, GPU, cloud provider, or Personal AI.
+This repository contains the qualified Stage-0 architecture and public contract foundation. Stage 1 is limited to the control plane and `FakeDeviceProvider`; it deliberately does **not** integrate a real hypervisor, Android emulator, Windows VM, Apple simulator, GPU, cloud provider, or Personal AI.
 
 ## Project boundary
 
