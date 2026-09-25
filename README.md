@@ -6,7 +6,7 @@ AI Virtual Compute is an independent, capability-based control plane for securel
 
 ## Current status
 
-**0/12 stages complete — Stage 0 (Architecture & Contracts) in progress.**
+**0/12 stages complete — Stage 0 closure candidate under exact-head qualification.**
 
 This repository currently contains the authoritative Stage-0 architecture and public contract foundation. It deliberately does **not** integrate a real hypervisor, Android emulator, Windows VM, Apple simulator, GPU, cloud provider, or Personal AI.
 
@@ -48,6 +48,7 @@ The normative documents are:
 - [API v1](docs/api/api-v1.md)
 - [Testing strategy](docs/testing/testing-strategy.md)
 - [Stage-0 closure checklist](docs/stages/stage-0-closure.md)
+- [Stage-0 closure evidence](docs/stages/stage-0-closure-evidence-20260925.md)
 
 Machine-readable contracts live under [`contracts/`](contracts/).
 
