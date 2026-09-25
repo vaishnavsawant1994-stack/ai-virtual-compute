@@ -43,9 +43,13 @@ class Stage0ContractTests(unittest.TestCase):
         required = set(schema["required"])
         self.assertTrue(
             {
-                "principal_id", "client_id", "device_id", "session_id",
-                "capabilities", "issued_at", "expires_at", "revoked", "policy_context_id",
+                "tenant_id", "principal_id", "client_id", "device_id", "session_id",
+                "capabilities", "issued_at", "expires_at", "state", "policy_context_id",
             }.issubset(required)
+        )
+        self.assertEqual(
+            set(schema["properties"]["state"]["enum"]),
+            {"issued", "active", "expired", "revoked"},
         )
 
     def test_public_device_contract_does_not_leak_provider_identifiers(self) -> None:
