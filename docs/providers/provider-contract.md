@@ -2,6 +2,8 @@
 
 Providers translate normalized control-plane operations into backend-specific operations. They do not authenticate clients, grant permissions, approve risks, or issue leases.
 
+Provider endpoints authenticate only the control plane. Mutating calls carry a server-created authority context binding tenant, canonical device, policy decision, and (for connect/control) the current lease. This context is evidence of a bounded control-plane decision, not authority that the provider may broaden.
+
 ## Required operations
 
 | Operation | Semantics |
@@ -30,5 +32,6 @@ Providers translate normalized control-plane operations into backend-specific op
 - Destruction is idempotent; already-absent is a successful terminal condition.
 - Provider observations are reconciled by the lifecycle manager.
 - Provider adapters emit correlation data for audit without accepting audit authority.
+- Providers reject mutating requests that lack control-plane authority context; `connect` and `control` also require a current lease binding.
 
 The machine-readable request/response envelope is in `contracts/provider/provider-v1.schema.json`.
