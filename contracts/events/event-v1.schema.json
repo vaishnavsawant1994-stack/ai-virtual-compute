@@ -4,9 +4,15 @@
   "title": "Platform Event v1",
   "type": "object",
   "additionalProperties": false,
-  "required": ["event_id", "event_type", "occurred_at", "correlation_id", "actor", "outcome"],
+  "required": [
+    "schema_version", "event_id", "event_type", "tenant_id", "sequence", "occurred_at",
+    "request_id", "correlation_id", "actor", "target", "outcome", "integrity"
+  ],
   "properties": {
+    "schema_version": {"const": "1.0"},
     "event_id": {"type": "string", "pattern": "^evt_[A-Za-z0-9]+$"},
+    "tenant_id": {"type": "string", "pattern": "^ten_[A-Za-z0-9]+$"},
+    "sequence": {"type": "integer", "minimum": 1},
     "event_type": {
       "type": "string",
       "enum": [
@@ -19,6 +25,7 @@
       ]
     },
     "occurred_at": {"type": "string", "format": "date-time"},
+    "request_id": {"type": "string", "minLength": 1},
     "correlation_id": {"type": "string", "minLength": 1},
     "actor": {
       "type": "object",
@@ -33,13 +40,25 @@
     "target": {
       "type": "object",
       "additionalProperties": false,
+      "required": ["resource_type", "resource_id"],
       "properties": {
-        "resource_type": {"type": "string"},
-        "resource_id": {"type": "string"}
+        "resource_type": {"type": "string", "minLength": 1},
+        "resource_id": {"type": "string", "minLength": 1}
       }
     },
+    "policy_decision_id": {"type": ["string", "null"]},
+    "approval_id": {"type": ["string", "null"]},
     "outcome": {"type": "string", "enum": ["allowed", "denied", "succeeded", "failed", "unknown"]},
     "reason_code": {"type": ["string", "null"]},
-    "details": {"type": "object"}
+    "details": {"type": "object"},
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["previous_event_hash", "record_hash"],
+      "properties": {
+        "previous_event_hash": {"type": ["string", "null"]},
+        "record_hash": {"type": "string", "minLength": 16}
+      }
+    }
   }
 }
