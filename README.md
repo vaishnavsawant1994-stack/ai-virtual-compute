@@ -1,5 +1,17 @@
 # AI Virtual Compute
 
+<!-- repository-profile:start -->
+## Repository profile
+
+**Purpose:** Independent, capability-based platform for securely provisioning and operating virtual computers and devices for humans, AI systems, agents, applications, and automation.
+
+**Core contents:** Python API/control-plane foundation, provider interfaces, runtime, CLI/SDK areas, UI area, tests, architecture/security/provider documentation, and machine-readable contracts.
+
+**Current status:** Stage 0—Architecture & Contracts—is complete and qualified. Stage 1 covers the control plane and FakeDeviceProvider, but it remains gated by the project's required review/authorization evidence. No real hypervisor, Android, Windows, Apple, GPU, or cloud provider should be inferred from Stage 0.
+
+**Recommended next milestone:** Record the exact Stage-1 authorization/review boundary in the status documentation, then implement and qualify only the approved control-plane/FakeDeviceProvider scope.
+<!-- repository-profile:end -->
+
 AI Virtual Compute is an independent, capability-based control plane for securely provisioning and operating virtual computers and virtual devices for humans, AI systems, agents, applications, and automation.
 
 > Give AI systems computers when they need computers, without giving them uncontrolled infrastructure.
