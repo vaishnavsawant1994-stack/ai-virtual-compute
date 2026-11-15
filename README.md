@@ -102,3 +102,7 @@ No stage is complete merely because code was written.
 ## License
 
 No open-source license has been granted yet. All rights are reserved until the owner selects a license.
+
+## Complete project guide
+
+For an individual explanation of this repository's purpose, users, workflows, architecture, current implementation limits, developer setup, security boundaries and prioritized engineering work, see the [**Project Handbook**](docs/PROJECT_HANDBOOK.md). This documentation reflects inspected repository source and is not a live-release certification.
